@@ -6,7 +6,7 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, getData }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -22,6 +22,7 @@ const ColorList = ({ colors, updateColors }) => {
     .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
     .then(response => {
       console.log('testing saveEdit', response.data);
+      getData();
       setEditing(false);
     })
     // Make a put request to save your updated color
@@ -34,6 +35,7 @@ const ColorList = ({ colors, updateColors }) => {
     .delete(`http://localhost:5000/api/colors/${color.id}`)
     .then(response => {
       console.log(response);
+      getData();
     })
     .catch(error => {
       console.log(error);
