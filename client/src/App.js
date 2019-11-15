@@ -19,3 +19,5 @@ function App() {
 }
 
 export default App;
+
+// set up PrivateRoute and assigned that endpoint(?) to land on the BubblePage component

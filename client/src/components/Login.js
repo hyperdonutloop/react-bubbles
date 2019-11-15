@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
+/*
+Stage 1- Authentication 
+
+Construct an AXIOS request to retrieve a token from the server. You'll use this token to interact with the API ✅
+Save the token to localStorage ✅
+Build a axiosWithAuth module to create an instance of axios with the authentication header ✅
+Build a PrivateRoute component and use it to protect a route that renders the BubblesPage component ✅
+
+
+*/
+
 const Login = (props) => {
   const [ credentials, setCredentials ] = useState({
     username: 'Ryan',
@@ -18,6 +29,7 @@ const Login = (props) => {
     .then(response => {
       localStorage.setItem('token', response.data.payload);
       props.history.push('/protected');
+      // after token has been authenticated we route this login to the protected web page
     })
     .catch(error => {
       console.log('this did not work', error); 

@@ -9,3 +9,5 @@ ReactDOM.render(
   <App />
 </Router>,
  rootElement);
+
+ // surrounded app by Router so the entire app has use of Router capabilities
