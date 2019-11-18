@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const initialColor = {
   color: "",
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, getData }) => {
   console.log(colors);
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(false); //editing is by default set to false
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
   const editColor = color => {
@@ -18,13 +18,31 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
+    axiosWithAuth()
+    .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
+    .then(response => {
+      console.log('testing saveEdit', response.data);
+      getData(); 
+      // calling getData function that is passed in as a destructured prop.
+      //getData allows page to reload dynamically once you save an edit
+      setEditing(false); //set editing to false so that once you are done editing and hit save, the editing window goes away
+    })
     // Make a put request to save your updated color
     // think about where will you get the id from...
-    // where is is saved right now?
+    // where is id saved right now?
   };
 
   const deleteColor = color => {
-    // make a delete request to delete this color
+    axiosWithAuth()
+    .delete(`http://localhost:5000/api/colors/${color.id}`)
+    .then(response => {
+      console.log(response);
+      getData();
+    })
+    .catch(error => {
+      console.log(error);
+      
+    })
   };
 
   return (
