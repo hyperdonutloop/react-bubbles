@@ -8,7 +8,7 @@ const initialColor = {
 
 const ColorList = ({ colors, updateColors, getData }) => {
   console.log(colors);
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(false); //editing is by default set to false
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
   const editColor = color => {
@@ -22,8 +22,10 @@ const ColorList = ({ colors, updateColors, getData }) => {
     .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
     .then(response => {
       console.log('testing saveEdit', response.data);
-      getData();
-      setEditing(false);
+      getData(); 
+      // calling getData function that is passed in as a destructured prop.
+      //getData allows page to reload dynamically once you save an edit
+      setEditing(false); //set editing to false so that once you are done editing and hit save, the editing window goes away
     })
     // Make a put request to save your updated color
     // think about where will you get the id from...

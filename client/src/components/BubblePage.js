@@ -33,4 +33,4 @@ const BubblePage = () => {
 
 export default BubblePage;
 
-// passed getData as as PROP to colorlist, that way I could call getData in ColorList, withiyt
+// passed getData as as PROP to colorlist, that way I could call getData in ColorList without having to create another function
